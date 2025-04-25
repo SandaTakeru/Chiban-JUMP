@@ -1,0 +1,5 @@
+<RCC>
+	<qresource prefix="/plugins/chiban_jump" >
+		<file>icon.png</file>
+	</qresource>
+</RCC>
