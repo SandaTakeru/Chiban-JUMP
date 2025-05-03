@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>ChibanJumpDialogBase</class>
+	<widget class="QDialog" name="ChibanJumpDialogBase">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>380</width>
+				<height>220</height>
+			</rect>
+		</property>
+		<property name="sizePolicy">
+			<sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+				<horstretch>0</horstretch>
+				<verstretch>0</verstretch>
+			</sizepolicy>
+		</property>
+		<property name="windowTitle">
+			<string>地番JUMP</string>
+		</property>
+		<layout class="QVBoxLayout" name="verticalLayout_2">
+			<item>
+				<layout class="QVBoxLayout" name="verticalLayout">
+					<property name="spacing">
+						<number>4</number>
+					</property>
+					<property name="sizeConstraint">
+						<enum>QLayout::SetDefaultConstraint</enum>
+					</property>
+					<property name="leftMargin">
+						<number>0</number>
+					</property>
+					<property name="topMargin">
+						<number>0</number>
+					</property>
+					<property name="rightMargin">
+						<number>0</number>
+					</property>
+					<property name="bottomMargin">
+						<number>0</number>
+					</property>
+					<item>
+						<widget class="QLabel" name="label">
+							<property name="sizePolicy">
+								<sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+									<horstretch>0</horstretch>
+									<verstretch>0</verstretch>
+								</sizepolicy>
+							</property>
+							<property name="text">
+								<string>登記所備付地図データ</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QgsMapLayerComboBox" name="chibankukaku">
+							<property name="toolTip">
+								<string>登記所備付地図データのレイヤを選択してください。</string>
+							</property>
+							<property name="placeholderText">
+								<string>登記所備付地図データ</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_city">
+							<property name="text">
+								<string>市区町村名</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QComboBox" name="city_selector">
+							<property name="toolTip">
+								<string>「市区町村名」の属性値を選択してください。</string>
+							</property>
+							<property name="placeholderText">
+								<string>市区町村名を選択</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_ooaza">
+							<property name="text">
+								<string>大字名</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QComboBox" name="ooaza_selector">
+							<property name="toolTip">
+								<string>「大字名」の属性値を選択してください。</string>
+							</property>
+							<property name="placeholderText">
+								<string>大字名を選択</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_chome">
+							<property name="text">
+								<string>丁目名</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QComboBox" name="chome_selector">
+							<property name="toolTip">
+								<string>「丁目名」の属性値を選択してください。</string>
+							</property>
+							<property name="placeholderText">
+								<string>丁目名を選択</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_koaza">
+							<property name="text">
+								<string>小字名</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QComboBox" name="koaza_selector">
+							<property name="toolTip">
+								<string>「小字名」の属性値を選択してください。</string>
+							</property>
+							<property name="placeholderText">
+								<string>小字名を選択</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_yobi">
+							<property name="text">
+								<string>予備名</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QComboBox" name="yobi_selector">
+							<property name="toolTip">
+								<string>「予備名」の属性値を選択してください。</string>
+							</property>
+							<property name="placeholderText">
+								<string>予備名を選択</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_chiban">
+							<property name="text">
+								<string>地番</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QComboBox" name="chiban_selector">
+							<property name="toolTip">
+								<string>「地番」の属性値を選択してください。</string>
+							</property>
+							<property name="placeholderText">
+								<string>地番を選択</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_5">
+							<property name="enabled">
+								<bool>true</bool>
+							</property>
+							<property name="sizePolicy">
+								<sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+									<horstretch>0</horstretch>
+									<verstretch>0</verstretch>
+								</sizepolicy>
+							</property>
+							<property name="maximumSize">
+								<size>
+									<width>16777215</width>
+									<height>18</height>
+								</size>
+							</property>
+							<property name="toolTip">
+								<string/>
+							</property>
+							<property name="whatsThis">
+								<string/>
+							</property>
+							<property name="text">
+								<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QDialogButtonBox" name="button_box">
+							<property name="sizePolicy">
+								<sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+									<horstretch>0</horstretch>
+									<verstretch>0</verstretch>
+								</sizepolicy>
+							</property>
+							<property name="orientation">
+								<enum>Qt::Horizontal</enum>
+							</property>
+							<property name="standardButtons">
+								<set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+							</property>
+						</widget>
+					</item>
+					<item>
+						<widget class="QLabel" name="label_6">
+							<property name="sizePolicy">
+								<sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+									<horstretch>0</horstretch>
+									<verstretch>0</verstretch>
+								</sizepolicy>
+							</property>
+							<property name="toolTip">
+								<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;地番JUMPを開発しました。&lt;/p&gt;&lt;p&gt;周りのQGISユーザーにもぜひお勧めください。&lt;/p&gt;&lt;p&gt;改善要望があれば、お気軽にご連絡ください。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+							</property>
+							<property name="text">
+								<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;©三田武2025&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+							</property>
+							<property name="alignment">
+								<set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+							</property>
+						</widget>
+					</item>
+				</layout>
+			</item>
+		</layout>
+	</widget>
+	<customwidgets>
+		<customwidget>
+			<class>QgsMapLayerComboBox</class>
+			<extends>QComboBox</extends>
+			<header>qgsmaplayercombobox.h</header>
+		</customwidget>
+	</customwidgets>
+	<resources/>
+	<connections>
+		<connection>
+			<sender>button_box</sender>
+			<signal>accepted()</signal>
+			<receiver>ChibanJumpDialogBase</receiver>
+			<slot>accept()</slot>
+			<hints>
+				<hint type="sourcelabel">
+					<x>6</x>
+					<y>239</y>
+				</hint>
+				<hint type="destinationlabel">
+					<x>20</x>
+					<y>20</y>
+				</hint>
+			</hints>
+		</connection>
+		<connection>
+			<sender>button_box</sender>
+			<signal>rejected()</signal>
+			<receiver>ChibanJumpDialogBase</receiver>
+			<slot>reject()</slot>
+			<hints>
+				<hint type="sourcelabel">
+					<x>6</x>
+					<y>239</y>
+				</hint>
+				<hint type="destinationlabel">
+					<x>20</x>
+					<y>20</y>
+				</hint>
+			</hints>
+		</connection>
+	</connections>
+</ui>
