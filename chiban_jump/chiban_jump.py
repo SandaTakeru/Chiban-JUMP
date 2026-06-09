@@ -88,29 +88,31 @@ class ChibanJump:
 			self.iface.removeToolBarIcon(action)
 
 	def build_conditions(self, fields):
-		"""
-		フィールドと値の辞書を受け取り、条件式を構築するヘルパー関数。
-		"""
 		conditions = []
 		for field, value in fields.items():
-			if value is not None and value.strip():  # 空白でない場合
-				if value == "NULL":
+			if value is not None and value.strip():
+				if value == 'NULL':
 					conditions.append(f'"{field}" IS NULL')
 				else:
-					conditions.append(f'"{field}" = \'{value}\'')
-			# 空白の場合は条件を追加しない（無条件）
+					escaped = value.replace("'", "''")
+					conditions.append(f'"{field}" = \'{escaped}\'')
 		return conditions
 
 	def run(self):
-		if self.first_start == True:
+		if self.first_start:
 			self.first_start = False
 			self.dlg = ChibanJumpDialog()
 
 			# chibankukaku にポリゴンレイヤのフィルタを設定
 			self.dlg.chibankukaku.setFilters(QgsMapLayerProxyModel.PolygonLayer)
 
+		# アクティブレイヤをプリセット
+		active_layer = self.iface.activeLayer()
+		if active_layer:
+			self.dlg.chibankukaku.setLayer(active_layer)
+
 		self.dlg.show()
-		result = self.dlg.exec_()
+		result = self.dlg.exec()
 		if result:
 			# 選択したレイヤを取得
 			selected_layer = self.dlg.chibankukaku.currentLayer()
@@ -121,44 +123,57 @@ class ChibanJump:
 			chome = self.dlg.chome_selector.currentText()
 			koaza = self.dlg.koaza_selector.currentText()
 			yobi = self.dlg.yobi_selector.currentText()
-			chiban = self.dlg.chiban_selector.currentText()
 
-			# デバッグ用の出力
-			print(f"選択された値: 市区町村名={city}, 大字名={ooaza}, 丁目名={chome}, 小字名={koaza}, 予備名={yobi}, 地番={chiban}")
+			# 地番は複数選択（空白・未選択はフィルタなし）
+			selected_chiban = [item.text() for item in self.dlg.chiban_selector.selectedItems() if item.text()]
 
 			if selected_layer:
-				# 各フィールドの値を辞書にまとめる
+				# 上位フィールドの条件式を構築
 				fields = {
 					"市区町村名": city,
 					"大字名": ooaza,
 					"丁目名": chome,
 					"小字名": koaza,
 					"予備名": yobi,
-					"地番": chiban
 				}
-
-				# 条件式を構築
 				conditions = self.build_conditions(fields)
 
-				# 条件式をデバッグ出力
-				print(f"構築された条件式: {' AND '.join(conditions)}")
+				# 地番の条件を追加（複数選択対応）
+				if selected_chiban:
+					if len(selected_chiban) == 1:
+						v = selected_chiban[0]
+						conditions.append('"地番" IS NULL' if v == 'NULL' else f'"地番" = \'{v}\'')
+					else:
+						null_vals = [v for v in selected_chiban if v == 'NULL']
+						str_vals = [v for v in selected_chiban if v != 'NULL']
+						chiban_parts = []
+						if str_vals:
+							in_list = ', '.join(f"'{v.replace(chr(39), chr(39)*2)}'" for v in str_vals)
+							chiban_parts.append(f'"地番" IN ({in_list})')
+						if null_vals:
+							chiban_parts.append('"地番" IS NULL')
+						conditions.append(f'({" OR ".join(chiban_parts)})')
 
 				if conditions:
 					expression = QgsExpression(" AND ".join(conditions))
 					request = QgsFeatureRequest(expression)
 					selected_features = [f for f in selected_layer.getFeatures(request)]
 
-					# 検索結果をデバッグ出力
-					print(f"検索結果の地物数: {len(selected_features)}")
-
 					if selected_features:
-						# 地物を選択
-						selected_layer.selectByIds([f.id() for f in selected_features])
+						final_ids = {f.id() for f in selected_features}
 
-						# 選択した地物にズーム
-						extent = QgsGeometry.unaryUnion([f.geometry() for f in selected_features]).boundingBox()
-						self.iface.mapCanvas().setExtent(extent)
-						self.iface.mapCanvas().refresh()
+						# 隣接地も選択するオプション
+						if self.dlg.adjacent_checkbox.isChecked():
+							valid_geoms = [f.geometry() for f in selected_features if f.geometry() and not f.geometry().isEmpty()]
+							if valid_geoms:
+								union_geom = QgsGeometry.unaryUnion(valid_geoms)
+								bbox_request = QgsFeatureRequest().setFilterRect(union_geom.boundingBox()).setSubsetOfAttributes([])
+								for candidate in selected_layer.getFeatures(bbox_request):
+									if candidate.id() not in final_ids and union_geom.touches(candidate.geometry()):
+										final_ids.add(candidate.id())
+
+						selected_layer.selectByIds(list(final_ids))
+						self.iface.mapCanvas().zoomToSelected(selected_layer)
 					else:
 						self.iface.messageBar().pushMessage(
 							"情報", "該当する地物が見つかりませんでした。条件を確認してください。", level=Qgis.Info)

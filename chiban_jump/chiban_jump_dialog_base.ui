@@ -7,7 +7,7 @@
 				<x>0</x>
 				<y>0</y>
 				<width>380</width>
-				<height>220</height>
+				<height>335</height>
 			</rect>
 		</property>
 		<property name="sizePolicy">
@@ -156,17 +156,30 @@
 						</widget>
 					</item>
 					<item>
-						<widget class="QComboBox" name="chiban_selector">
+						<widget class="QListWidget" name="chiban_selector">
 							<property name="toolTip">
-								<string>「地番」の属性値を選択してください。</string>
+								<string>「地番」の属性値を選択してください。Ctrl/Shiftで複数選択できます。</string>
 							</property>
-							<property name="placeholderText">
-								<string>地番を選択</string>
+							<property name="minimumSize">
+								<size>
+									<width>0</width>
+									<height>80</height>
+								</size>
+							</property>
+							<property name="selectionMode">
+								<enum>QAbstractItemView::ExtendedSelection</enum>
 							</property>
 						</widget>
 					</item>
 					<item>
-						<widget class="QLabel" name="label_5">
+						<widget class="QCheckBox" name="adjacent_checkbox">
+						<property name="text">
+							<string>隣接する土地も選択する</string>
+						</property>
+					</widget>
+					</item>
+					<item>
+					<widget class="QLabel" name="label_5">
 							<property name="enabled">
 								<bool>true</bool>
 							</property>

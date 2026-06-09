@@ -4,11 +4,11 @@
 
 [general]
 name=地番JUMP
-qgisMinimumVersion=3.0
+qgisMinimumVersion=4.0
 description=This plugin searches for the parcel number and displays it in the center of the map canvas.Ｇ空間情報センターで公開されている「登記所備付地図の電子データ」で、指定した地番を検索・表示するためのプラグインです。
-version=20250503
+version=20260609
 author=Sanda Takeru
-email=takeru_sanda999@maff.go.jp
+email=location.lab@sanda-takeru.com
 
 about=This plugin searches for the parcel number and displays it in the center of the map canvas.Ｇ空間情報センターで公開されている「登記所備付地図の電子データ」で、指定した地番を検索・表示するためのプラグインです。
 
@@ -19,8 +19,8 @@ repository=https://github.com/SandaTakeru/Chiban-JUMP
 # Recommended items:
 
 hasProcessingProvider=no
-# Uncomment the following line and add your changelog:
-# changelog=2025/05/03；漢数字の並べ替えを実装。
+changelog=2026/06/09：QGIS4.X対応。複数地番の検索機能を追加。隣接土地の自動選択機能を追加。バグ修正。
+    2025/05/03：漢数字の並べ替えを実装。
 
 # Tags are comma separated with spaces allowed
 tags=python
